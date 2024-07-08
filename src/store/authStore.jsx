@@ -43,3 +43,49 @@ export const useAuthStore = create(
     },
   ),
 );
+
+export const useThemeStore = create(set => ({
+  isDarkMode: true,
+  theme: darkTheme,
+  ToggleTheme: () =>
+    set(state => ({
+      isDarkMode: !state.isDarkMode,
+      theme: state.isDarkMode ? lightTheme : darkTheme,
+    })),
+}));
+
+const lightTheme = {
+  white: '#FFFFFF',
+  success: '#5cb85c',
+  error: '#FF3C3E',
+  info: '#eee600',
+  dark: '#000000',
+  light: '#000000',
+  otpTextLight: '#D3D3D3',
+  backgroundLight: '#FFFFFF',
+  primaryBorderColor: '#000000',
+  primaryColor: '#FFFFFF',
+  secondaryColor: '#B6B6B6',
+  trashColor: '#FFFFFF',
+  whitemode: '#DBDBDB',
+  line: '#DBDBDB',
+  profileBackground: '#E8E8E8',
+};
+
+const darkTheme = {
+  white: '#FFFFFF',
+  success: '#5cb85c',
+  error: '#FF3333',
+  info: '#eee600',
+  otpTextLight: '#404040',
+  dark: '#121212',
+  backgroundLight: '#121212',
+  primaryBorderColor: '#08E2FF',
+  light: '#FFFFFF',
+  primaryColor: '#08E2FF',
+  secondaryColor: '#B6B6B6',
+  trashColor: '#cf434a',
+  darkMode: '#93F2FF',
+  line: 'rgba(255, 255, 255, 0.20)',
+  profileBackground: 'rgba(69, 69, 69, 0.7)',
+};
