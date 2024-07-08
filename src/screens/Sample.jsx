@@ -7,13 +7,13 @@ const Sample = () => {
   return (
     <View className="flex-1 bg-slate-700">
       <TouchableOpacity
-        className="S bg-fuchsia-500 text-black"
+        className="text-black"
         onPress={() => {
           ToggleTheme();
         }}>
         <Text
           className="text-white text-center"
-          style={{backgroundColor: theme.light}}>
+          style={{color: theme?.light}}>
           Press
         </Text>
       </TouchableOpacity>

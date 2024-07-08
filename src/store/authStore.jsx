@@ -44,15 +44,30 @@ export const useAuthStore = create(
   ),
 );
 
-export const useThemeStore = create(set => ({
-  isDarkMode: true,
-  theme: darkTheme,
-  ToggleTheme: () =>
-    set(state => ({
-      isDarkMode: !state.isDarkMode,
-      theme: state.isDarkMode ? lightTheme : darkTheme,
-    })),
-}));
+export const useThemeStore = create(
+  persist(
+    (set, get) => ({
+      isDarkMode: true,
+      theme: darkTheme,
+      ToggleTheme: () =>
+        set(state => ({
+          isDarkMode: !state.isDarkMode,
+          theme: state.isDarkMode ? lightTheme : darkTheme,
+        })),
+    }),
+    {
+      name: SECURE_STORAGE_KEYS.APP_THEME, // storing the token in the local storage
+      storage: createJSONStorage(() => {
+        try {
+          return AsyncStorage;
+        } catch (error) {
+          console.error('Error accessing sessionStorage:', error);
+          return;
+        }
+      }),
+    },
+  ),
+);
 
 const lightTheme = {
   white: '#FFFFFF',
