@@ -46,7 +46,7 @@ export const useAuthStore = create(
 
 export const useThemeStore = create(
   persist(
-    (set, get) => ({
+    set => ({
       isDarkMode: true,
       theme: darkTheme,
       ToggleTheme: () =>
@@ -56,7 +56,7 @@ export const useThemeStore = create(
         })),
     }),
     {
-      name: SECURE_STORAGE_KEYS.APP_THEME, // storing the token in the local storage
+      name: SECURE_STORAGE_KEYS.APP_THEME, // storing the theme in the local storage
       storage: createJSONStorage(() => {
         try {
           return AsyncStorage;
