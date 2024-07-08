@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useAxiosPrivate from '../Hooks/useAxios';
+import useAxiosPrivate from '../hooks/useAxios';
 import {useAuthStore, useLookUpStore} from '../store/authStore';
 
 import {AUTH_ENDPOINTS, NOTIFICATION_ENDPOINTS} from './constants';

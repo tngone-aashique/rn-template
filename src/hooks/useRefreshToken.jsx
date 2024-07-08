@@ -1,5 +1,5 @@
 import {axiosBase} from '../services';
-import AUTH_ENDPOINTS from '../services/constants';
+import AUTH_ENDPOINTS from '../services/Constants';
 import {useAuthStore} from '../store/authStore';
 import {BASE_USER} from '../utils/constanst';
 
