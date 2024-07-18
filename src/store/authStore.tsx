@@ -21,7 +21,7 @@ interface AuthState {
 interface ThemeState {
   isDarkMode: boolean;
   theme: Theme;
-  ToggleTheme: () => void;
+  toggleTheme: () => void;
 }
 
 interface Theme {
@@ -31,16 +31,6 @@ interface Theme {
   info: string;
   dark: string;
   light: string;
-  otpTextLight: string;
-  backgroundLight: string;
-  primaryBorderColor: string;
-  primaryColor: string;
-  secondaryColor: string;
-  trashColor: string;
-  whitemode?: string;
-  line: string;
-  profileBackground: string;
-  darkMode?: string;
 }
 
 export const useLookUpStore = create<LookUpState>(set => ({
@@ -51,7 +41,7 @@ export const useLookUpStore = create<LookUpState>(set => ({
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
-      auth: BASE_USER, //intial value
+      auth: BASE_USER, //initial value
       initializing: true,
       setAuth: auths => set({auth: {...get().auth, ...auths}}), //function to change auth
       setUserName: username => set({auth: {...get().auth, username}}), //function to change user name
@@ -82,7 +72,7 @@ export const useThemeStore = create<ThemeState>()(
     set => ({
       isDarkMode: true,
       theme: darkTheme,
-      ToggleTheme: () =>
+      toggleTheme: () =>
         set(state => ({
           isDarkMode: !state.isDarkMode,
           theme: state.isDarkMode ? lightTheme : darkTheme,
@@ -102,15 +92,6 @@ const lightTheme = {
   info: '#eee600',
   dark: '#000000',
   light: '#000000',
-  otpTextLight: '#D3D3D3',
-  backgroundLight: '#FFFFFF',
-  primaryBorderColor: '#000000',
-  primaryColor: '#FFFFFF',
-  secondaryColor: '#B6B6B6',
-  trashColor: '#FFFFFF',
-  whitemode: '#DBDBDB',
-  line: '#DBDBDB',
-  profileBackground: '#E8E8E8',
 };
 
 const darkTheme = {
@@ -118,15 +99,6 @@ const darkTheme = {
   success: '#5cb85c',
   error: '#FF3333',
   info: '#eee600',
-  otpTextLight: '#404040',
-  dark: '#121212',
-  backgroundLight: '#121212',
-  primaryBorderColor: '#08E2FF',
+  dark: '#FFFFFF',
   light: '#FFFFFF',
-  primaryColor: '#08E2FF',
-  secondaryColor: '#B6B6B6',
-  trashColor: '#cf434a',
-  darkMode: '#93F2FF',
-  line: 'rgba(255, 255, 255, 0.20)',
-  profileBackground: 'rgba(69, 69, 69, 0.7)',
 };
