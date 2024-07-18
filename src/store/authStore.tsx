@@ -3,12 +3,52 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {BASE_USER, SECURE_STORAGE_KEYS} from '../utils/constanst';
 import {persist, createJSONStorage} from 'zustand/middleware';
 
-export const useLookUpStore = create(set => ({
+interface LookUpState {
+  lookups: any[];
+  setLookups: (look: any[]) => void;
+}
+
+interface AuthState {
+  auth: typeof BASE_USER;
+  initializing: boolean;
+  setAuth: (auths: Partial<typeof BASE_USER>) => void;
+  setUserName: (username: string) => void;
+  setAccessToken: (accessToken: string) => void;
+  setRefreshToken: (refreshToken: string) => void;
+  setInitializing: (initializing: boolean) => void;
+}
+
+interface ThemeState {
+  isDarkMode: boolean;
+  theme: Theme;
+  ToggleTheme: () => void;
+}
+
+interface Theme {
+  white: string;
+  success: string;
+  error: string;
+  info: string;
+  dark: string;
+  light: string;
+  otpTextLight: string;
+  backgroundLight: string;
+  primaryBorderColor: string;
+  primaryColor: string;
+  secondaryColor: string;
+  trashColor: string;
+  whitemode?: string;
+  line: string;
+  profileBackground: string;
+  darkMode?: string;
+}
+
+export const useLookUpStore = create<LookUpState>(set => ({
   lookups: [],
   setLookups: look => set(() => ({lookups: look})),
 }));
 
-export const useAuthStore = create(
+export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       auth: BASE_USER, //intial value
@@ -22,21 +62,14 @@ export const useAuthStore = create(
     }),
     {
       name: SECURE_STORAGE_KEYS.USER_SESSION, // storing the token in the local storage
-      storage: createJSONStorage(() => {
-        try {
-          return AsyncStorage;
-        } catch (error) {
-          console.error('Error accessing sessionStorage:', error);
-          return;
-        }
-      }),
+      storage: createJSONStorage(() => AsyncStorage as any),
       onRehydrateStorage: state => {
         // function to know wether the apploads data from the local storage
         return (state, error) => {
           if (error) {
             console.log('an error happened during hydration', error);
           } else {
-            state.setInitializing(false);
+            state?.setInitializing(false);
           }
         };
       },
@@ -44,7 +77,7 @@ export const useAuthStore = create(
   ),
 );
 
-export const useThemeStore = create(
+export const useThemeStore = create<ThemeState>()(
   persist(
     set => ({
       isDarkMode: true,
@@ -57,14 +90,7 @@ export const useThemeStore = create(
     }),
     {
       name: SECURE_STORAGE_KEYS.APP_THEME, // storing the theme in the local storage
-      storage: createJSONStorage(() => {
-        try {
-          return AsyncStorage;
-        } catch (error) {
-          console.error('Error accessing sessionStorage:', error);
-          return;
-        }
-      }),
+      storage: createJSONStorage(() => AsyncStorage as any),
     },
   ),
 );

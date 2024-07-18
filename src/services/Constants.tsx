@@ -28,4 +28,6 @@ const CONTROLLERS = {
 
 const AUTH_SERVICE = AUTHSERVICE + CONTROLLERS.AUTH;
 
-export const AUTH_ENDPOINTS = {};
+export const AUTH_ENDPOINTS = {
+  REFRESH_TOKEN:"/REFRESH"
+};

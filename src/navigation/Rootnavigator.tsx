@@ -15,12 +15,15 @@ export const RootNavigator = () => {
   const generalHelpers = useGeneralHelpers();
   // const permissionHandler = usePermissionHandler();
 
-  const [initial, setInitial] = useState(false);
+  const [initial, setInitial] = useState<boolean>(false);
 
   useEffect(() => {
     // generalHelpers.fetchLookUps();
     const unsubscribe = NetInfo.addEventListener(state => {
-      if (state.details !== null || Object.keys(state.details).length !== 0) {
+      if (
+        state.details !== null ||
+        Object.keys(state.details ?? {}).length !== 0
+      ) {
         if (
           !state.isConnected &&
           !state.isInternetReachable &&
